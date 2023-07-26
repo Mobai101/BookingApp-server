@@ -1,3 +1,4 @@
+const compression = require("compression");
 const fs = require("fs");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -20,6 +21,7 @@ const accessLogSteam = fs.createWriteStream(
 
 // middleware
 app.use(helmet());
+app.use(compression());
 app.use(cors());
 app.use(morgan("combined", { stream: accessLogSteam }));
 app.use(bodyParser.urlencoded({ extended: false }));
