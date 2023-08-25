@@ -12,14 +12,14 @@ exports.postLogin = async (req, res, next) => {
   // Find user from database
   const foundUser = await User.findOne({ email: email });
 
-  // Check if user is admin
-  if (!foundUser.isAdmin) {
-    return res.status(401).json({ message: "User is not admin" });
-  }
-
   // Check if user exist
   if (!foundUser) {
     return res.status(401).json({ message: "User not found" });
+  }
+
+  // Check if user is admin
+  if (!foundUser.isAdmin) {
+    return res.status(401).json({ message: "User is not admin" });
   }
 
   // Check if password match
@@ -101,7 +101,7 @@ exports.postNewHotel = async (req, res, next) => {
     !req.body.desc ||
     !req.body.price
   ) {
-    res.status(422).json({
+    return res.status(422).json({
       message: "Validation error: please provide all required fields",
     });
   }

@@ -20,7 +20,9 @@ const accessLogSteam = fs.createWriteStream(
 );
 
 // middleware
-app.use(helmet());
+helmet({
+  crossOriginResourcePolicy: false,
+});
 app.use(compression());
 app.use(cors());
 app.use(morgan("combined", { stream: accessLogSteam }));
