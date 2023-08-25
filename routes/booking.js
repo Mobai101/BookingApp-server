@@ -3,6 +3,11 @@ const express = require("express");
 const bookingController = require("../controllers/booking");
 const router = express.Router();
 
+// Healthz check for render service
+router.get("/healthz", (req, res, next) => {
+  res.status(200).json({ message: "OK!" });
+});
+
 // Homepage
 router.get("/", bookingController.getIndex);
 
